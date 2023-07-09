@@ -1,0 +1,110 @@
+{% load static %}
+
+<div class="content">
+    <div class="container">
+        <div class="page-title">
+            <h3>Клиенты</h3>
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-12 col-lg-12">
+
+                <div class="card">
+                    <div class="card-header">Список рассылок</div>
+                    <div class="card-body">
+                        <p class="card-title"></p>
+                        <div id="dataTables-example_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer"><div class="row"><div class="col-sm-12 col-md-6"></div>
+                        <div class="col-sm-12 col-md-6"><div id="dataTables-example_filter" class="dataTables_filter"><label>Search:<input type="search" class="form-control form-control-sm" placeholder="" aria-controls="dataTables-example"></label></div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <br>
+                        <table class="table table-hover dataTable no-footer dtr-inline" id="dataTables-example" width="100%" role="grid" aria-describedby="dataTables-example_info" style="width: 100%;">
+                            <thead>
+                                <tr role="row">
+                                    <th class="sorting sorting_asc" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" style="width: 86px;" aria-sort="ascending">ID</th>
+
+                                    <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" style="width: 248px;">Тег</th>
+                                    
+                                    <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" style="width: 159px;">Телефон</th>
+                                    
+                                    <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" style="width: 218px;">Часовой пояс</th>
+
+                                    <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" style="width: 110px;"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                {% if customers %}
+                                    {% for customer in customers %}
+                                        <tr id="customer{{ customer.id }}" class="odd">
+                                            <td class="dtr-control sorting_1" tabindex="0">{{ customers.id }}</td>
+                                            <td>{{ customer.tag }}</td>
+                                            <td>{{ customer.tel }}</td>
+                                            <td>{{ customer.tmz }}</td>
+
+                                            <td>
+                                                <i id="edit{{ customer.id }}" class="fas fa-edit"></i>
+                                                &nbsp;
+                                                <i id="trash{{ customer.id }}" class="fa fa-trash"></i>
+                                                &nbsp;
+                                                <i id="save{{ customer.id }}" class="fas fa-save" style="display: none;"></i>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                {% endif %}
+ 
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <script src="{% static 'webui/js/customers.js' %}"></script>
+                
+                <div class="row">
+                    
+                    <div class="col-sm-12 col-md-5">
+                        <div class="dataTables_info" id="dataTables-example_info" role="status" aria-live="polite">Showing 1 to 10 of 10 entries</div>
+                    </div>
+                    <div class="col-sm-12 col-md-7">
+                        <div class="dataTables_paginate paging_simple_numbers" id="dataTables-example_paginate">
+                            
+                            <ul class="pagination">
+                                
+                                {% if last_page == 1 %}
+                                
+                                <li class="paginate_button page-item active"><a href="#" aria-controls="dataTables-example" data-dt-idx="1" tabindex="0" class="page-link">1</a></li>
+
+                                {% elif current_page == 1 %} 
+                                
+                                <li class="paginate_button page-item active"><a href="#" aria-controls="dataTables-example" data-dt-idx="1" tabindex="0" class="page-link">{{ current_page }}</a></li>
+                                
+                                <li class="paginate_button page-item next" id="dataTables-example_next"><a href="/account/customers/page/{{ next_page }}" aria-controls="dataTables-example" data-dt-idx="2" tabindex="0" class="page-link">&#10097;</a></li>
+
+                                {% elif current_page == last_page %}
+
+                                <li class="paginate_button page-item previous" id="dataTables-example_previous"><a href="/account/customers/page/{{ prev_page }}" aria-controls="dataTables-example" data-dt-idx="0" tabindex="0" class="page-link">&#10096;</a></li>
+                                
+                                <li class="paginate_button page-item active"><a href="#" aria-controls="dataTables-example" data-dt-idx="1" tabindex="0" class="page-link">{{ current_page }}</a></li>
+
+                                {% else %}
+
+                                <li class="paginate_button page-item previous" id="dataTables-example_previous"><a href="/account/customers/page/{{ prev_page }}" aria-controls="dataTables-example" data-dt-idx="0" tabindex="0" class="page-link">&#10096;</a></li>
+                                
+                                <li class="paginate_button page-item active"><a href="#" aria-controls="dataTables-example" data-dt-idx="1" tabindex="0" class="page-link">{{ current_page }}</a></li>
+                                
+                                <li class="paginate_button page-item next" id="dataTables-example_next"><a href="/account/customers/page/{{ next_page }}" aria-controls="dataTables-example" data-dt-idx="2" tabindex="0" class="page-link">&#10097;</a></li>
+
+                                {% endif %}
+                            </ul>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

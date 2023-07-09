@@ -1,0 +1,174 @@
+{% load static %}
+
+<div class="content">
+    <div class="container">
+        <div class="page-title">
+            <h3>Рассылки</h3>
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-12 col-lg-12">
+
+                <div class="card">
+                    <div class="card-header">Список рассылок</div>
+                    <div class="card-body">
+                        <p class="card-title"></p>
+                        <div id="dataTables-example_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
+                            <div class="row">
+                                <div class="col-sm-12 col-md-6">
+                            </div>
+                        
+                            <div class="col-sm-12 col-md-6">
+                                <div id="dataTables-example_filter" class="dataTables_filter"><label>Search:<input type="search" class="form-control form-control-sm" placeholder="" aria-controls="dataTables-example"></label></div>
+                            </div>
+                        </div>
+                
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <br>
+                                <table class="table table-hover dataTable no-footer dtr-inline" id="dataTables-example" width="100%" role="grid" aria-describedby="dataTables-example_info" style="width: 100%;">
+                                    <thead>
+                                        <tr role="row">
+                                            <th class="sorting sorting_asc" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" style="width: 86px;" aria-sort="ascending" aria-label="ID: activate to sort column descending">ID</th>
+                                            <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" style="width: 248px;" aria-label="Name: activate to sort column ascending">Сообщение</th>
+                                            <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" style="width: 159px;" aria-label="Salary: activate to sort column ascending">Фильтр</th>
+                                            <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" style="width: 218px;" aria-label="Country: activate to sort column ascending">Старт</th>
+                                            <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" style="width: 364px;" aria-label="City: activate to sort column ascending">Стоп</th>
+                                            <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" style="width: 364px;" aria-label="City: activate to sort column ascending">Статус</th>
+                                            <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" style="width: 110px;" aria-label="City: activate to sort column ascending"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% if camps %}
+                                            {% for camp in camps %}
+                                            <tr id="camp{{ camp.id }}" class="odd">
+                                                <td class="dtr-control sorting_1" tabindex="0">{{ camp.id }}</td>
+                                                <td>{{ camp.message }}</td>
+                                                <td>{{ camp.filter }}</td>
+                                                <td>{{ camp.start|date:'Y-m-d H:i:s' }}</td>
+                                                <td>{{ camp.stop|date:'Y-m-d H:i:s' }}</td>
+                                            
+                                                {% if camp.status == 1 %}
+                                                    <td>Новый</td>
+                                                {% elif camp.status == 2 %}
+                                                    <td>Запущен</td>
+                                                {% elif camp.status == 3 %}
+                                                    <td>Завершен</td>
+                                                {% endif %}
+
+                                                <td>
+                                                    <i id="edit{{ camp.id }}" class="fas fa-edit"></i>&nbsp;
+                                                    <i id="trash{{ camp.id }}" class="fa fa-trash"></i>&nbsp;
+                                                    <i id="save{{ camp.id }}" class="fas fa-save" style="display: none;"></i>
+                                                </td>
+                                            </tr>
+                                            {% endfor %}
+                                        {% endif %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                
+                        <div class="row">
+                            <div class="col-sm-12 col-md-5">
+                                <div class="dataTables_info" id="dataTables-example_info" role="status" aria-live="polite">Showing 1 to 10 of 10 entries</div>
+                            </div>
+                            <div class="col-sm-12 col-md-7">
+                                <div class="dataTables_paginate paging_simple_numbers" id="dataTables-example_paginate">
+                                    
+                                    <ul class="pagination">
+                                        
+                                        {% if last_page == 1 %}
+                                        <li class="paginate_button page-item active"><a href="#" aria-controls="dataTables-example" data-dt-idx="1" tabindex="0" class="page-link">1</a></li>
+                                        {% elif current_page == 1 %} 
+                                        <li class="paginate_button page-item active"><a href="#" aria-controls="dataTables-example" data-dt-idx="1" tabindex="0" class="page-link">{{ current_page }}</a></li>
+                                        <li class="paginate_button page-item next" id="dataTables-example_next"><a href="/account/campaigns/page/{{ next_page }}" aria-controls="dataTables-example" data-dt-idx="2" tabindex="0" class="page-link">&#10097;</a></li>
+                                        {% elif current_page == last_page %}
+                                        <li class="paginate_button page-item previous" id="dataTables-example_previous"><a href="/account/campaigns/page/{{ prev_page }}" aria-controls="dataTables-example" data-dt-idx="0" tabindex="0" class="page-link">&#10096;</a></li>
+                                        <li class="paginate_button page-item active"><a href="#" aria-controls="dataTables-example" data-dt-idx="1" tabindex="0" class="page-link">{{ current_page }}</a></li>
+                                        {% else %}
+                                        <li class="paginate_button page-item previous" id="dataTables-example_previous"><a href="/account/campaigns/page/{{ prev_page }}" aria-controls="dataTables-example" data-dt-idx="0" tabindex="0" class="page-link">&#10096;</a></li>
+                                        <li class="paginate_button page-item active"><a href="#" aria-controls="dataTables-example" data-dt-idx="1" tabindex="0" class="page-link">{{ current_page }}</a></li>
+                                        <li class="paginate_button page-item next" id="dataTables-example_next"><a href="/account/campaigns/page/{{ next_page }}" aria-controls="dataTables-example" data-dt-idx="2" tabindex="0" class="page-link">&#10097;</a></li>
+                                        {% endif %}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+            <!-- CREATE NEW CAMPAIGN -->
+
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">Создание новой рассылки</div>
+                    <div class="card-body">
+
+                        <form id="new_form" accept-charset="utf-8">
+                            <div class="row g-2">
+                                <div class="mb-3 col-md-6">
+                                    <label for="message" class="form-label">Сообщение</label><br>
+                                    <textarea id="sms_txt_field" class="form-label" name="message" cols="60" rows="3"></textarea><br>
+                                    <small>Осталось символов: <span id="sms_txt_counter">160</span></small>
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <h4>Фильтры</h4>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                          <div class="input-group-text">
+                                            <span class="input-group-text" style="border:none;">По оператору</span>
+                                            <input id="op_filter" type="checkbox" aria-label="Checkbox for following text input">
+                                          </div>
+                                        </div>
+                                        <input id="operator" type="text" class="form-control" name="operator" disabled>
+                                    </div>
+                                    <small>Пример: 999,917,913</small>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                          <div class="input-group-text">
+                                            <span class="input-group-text" style="border:none;">По тегам</span>
+                                            <input id="tag_filter" type="checkbox" aria-label="Checkbox for following text input">
+                                          </div>
+                                        </div>
+                                        <input id="tag" type="text" class="form-control" name="tag" disabled>
+                                    </div>
+                                    <small>Пример: good,new,moscow</small>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="inputGroup-sizing-default">Дата начала</span>
+                                        </div>
+                                        <input type="text" class="calendar" name="start">
+                                    </div>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                          <span class="input-group-text" id="inputGroup-sizing-default">Дата конца</span>
+                                        </div>
+                                        <input class="calendar" type="text" name="stop">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="new_form_result" role="alert" style="display: none;"></div><br>
+
+                            <input class="form-control" type="submit" />
+                            
+                        </form>
+                    </div>
+                </div>
+            </div>
+        
+        </div>
+    </div>
+</div>
+
+<script src="{% static 'webui/js/campaigns.js' %}"></script>
+<script src="{% static 'webui/js/sms_tools.js' %}"></script>

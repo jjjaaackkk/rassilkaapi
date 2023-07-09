@@ -1,0 +1,24 @@
+{% load static %}
+
+<nav id="sidebar" class="active">
+    <div class="sidebar-header">
+        <img src="{% static 'webui/img/logo.png' %}" alt="bootraper logo" class="app-logo">
+    </div>
+    <ul class="list-unstyled components text-secondary">
+        <li>
+            <a href="/account"><i class="fas fa-home"></i> Панель</a>
+        </li>
+        <li>
+            <a href="/account/campaigns"><i class="fas fa-hourglass"></i> Рассылки</a>
+        </li>
+        <li>
+            <a href="/account/customers"><i class="fas fa-user"></i> Клиенты</a>
+        </li>
+        <li>
+            <a href="/account/messages"><i class="fas fa-sms"></i> Сообщения</a>
+        </li>
+        <li>
+            <a href="/account/settings"><i class="fas fa-cog"></i>Настройки</a>
+        </li>
+    </ul>
+</nav>

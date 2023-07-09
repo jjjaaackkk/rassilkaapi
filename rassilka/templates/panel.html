@@ -1,0 +1,85 @@
+<div class="content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 page-header">
+                <div class="page-pretitle">Общая информация</div>
+                <h2 class="page-title">Панель</h2>
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="col-sm-6 col-md-6 col-lg-3 mt-3">
+                <div class="card">
+                    <div class="content">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="icon-big text-center">
+                                    <i class="olive fas fa-user"></i>
+                                </div>
+                            </div>
+                            <div class="col-sm-8">
+                                <div class="detail">
+                                    <p class="detail-subtitle">Клиенты</p> 
+                                    <span class="number">{{ total_customers }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6 col-md-6 col-lg-3 mt-3">
+                <div class="card">
+                    <div class="content">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="icon-big text-center">
+                                    <i class="teal fas fa-hourglass"></i>
+                                </div>
+                            </div>
+                            <div class="col-sm-8">
+                                <div class="detail">
+                                    <p class="detail-subtitle">Рассылки</p>
+                                    <span>
+                                        всего:&nbsp;{{ camps_stats.total }}<br>
+                                        новых:&nbsp;{{ camps_stats.ready }}<br>
+                                        в процессе:&nbsp;{{ camps_stats.started }}<br>
+                                        завершенных:&nbsp;{{ camps_stats.finished }}<br>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-sm-6 col-md-6 col-lg-3 mt-3">
+                <div class="card">
+                    <div class="content">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="icon-big text-center">
+                                    <i class="violet fas fa-sms"></i>
+                                </div>
+                            </div>
+                            <div class="col-sm-8">
+                                <div class="detail">
+                                    <p class="detail-subtitle">Сообщения</p>
+                                    <span>
+                                        всего:&nbsp;{{ msg.succeed }}<br>
+                                        успешных:&nbsp;{{ msg.succeed }}<br>
+                                        безуспешных:&nbsp;{{ msg.failed }}<br>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+</div>

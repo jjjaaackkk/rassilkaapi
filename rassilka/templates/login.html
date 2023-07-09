@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% include 'header.html' %}
+    {% block header %}
+    {% endblock %}
+</head>
+
+<body>
+
+    <div class="vh-100 d-flex justify-content-center align-items-center">
+        <div class="container">
+          <div class="row d-flex justify-content-center">
+            <div class="col-12 col-md-8 col-lg-6">
+              <div class="border border-3 border-primary"></div>
+              <div class="card bg-white">
+                <div class="card-body p-5">
+                  <form class="mb-3 mt-md-4" action="/post_login"  method="post">
+                    <div class="mb-3">
+                      <label for="login" class="form-label ">Логин</label>
+                      <input type="text" class="form-control" id="login" name="usr">
+                    </div>
+                    <div class="mb-3">
+                      <label for="password" class="form-label ">Пароль</label>
+                      <input type="password" class="form-control" id="password" name="pass">
+                    </div>
+                    <br>
+                    {% csrf_token %}
+                    {% if error %}
+                    <div class="alert alert-danger" role="alert">{{ error }}</div>
+                    {% endif %}
+                    <div class="d-grid">
+                      <button class="btn btn-secondary" type="submit">Войти</button>
+                    </div>
+                  </form>
+      
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+</body>
+
+</html>

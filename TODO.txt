@@ -1,0 +1,9 @@
+docker-compose build
+docker-compose run rassilka sh -c "python manage.py makemigratons"
+docker-compose run rassilka sh -c "python manage.py createsuperuser"
+
+set user login, email, password
+
+docker-compose run rassilka sh -c "python manage.py makemigrations"
+
+docker-compose up --build
