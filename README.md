@@ -29,7 +29,7 @@ Final step
 `docker-compose up --build`
 
 
-## FIRST RUN
+## FIRST STEPS
 
 After building docker in your browser open http://127.0.0.1:8000
 
@@ -54,4 +54,14 @@ For statistics:
 ### Swagger UI
 
 You can learn about API at https://127.0.0.1/docs/
+
+## TODO
+
+Add manuals
+Add OpenAPI related data
+Fix 3rd party API problems
+In Admin Panel finish Customers, Messages, Settings sections
+Fix bugs
+Maybe add k8s
+
 
