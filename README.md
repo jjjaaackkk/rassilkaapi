@@ -2,6 +2,11 @@
 
 Hello to my Rassilka API django drf test project!
 
+## REQUIREMENTS
+
+You can find in file requirements.txt
+
+
 ## INSTALLATION
 
 1) change **.env.env** global variables such as DB, API, etc
