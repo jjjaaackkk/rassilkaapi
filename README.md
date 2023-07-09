@@ -53,7 +53,7 @@ For statistics:
 
 ### Swagger UI
 
-You can learn about API at https://127.0.0.1/docs/
+You can learn more about API using https://127.0.0.1/docs/
 
 ## TODO
 
