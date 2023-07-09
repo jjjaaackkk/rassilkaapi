@@ -57,11 +57,12 @@ You can learn about API at https://127.0.0.1/docs/
 
 ## TODO
 
-Add manuals
-Add OpenAPI related data
-Fix 3rd party API problems
-In Admin Panel finish Customers, Messages, Settings sections
-Fix bugs
-Maybe add k8s
+- Add manuals
+- Add OpenAPI related data
+- Fix 3rd party API problems
+- In Admin Panel finish Customers, Messages, Settings sections
+- Fix bugs
+- Maybe add k8s
+
 
 
