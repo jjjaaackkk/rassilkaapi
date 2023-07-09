@@ -1,10 +1,11 @@
-# test
+# Rassilka API
 
-Hello to my Rassilka API django drf test project!
+Hello to my test project!
+This is test Django/DRF project using Celery
 
 ## REQUIREMENTS
 
-You can find in file requirements.txt
+You can find in file **requirements.txt**
 
 
 ## INSTALLATION
@@ -38,7 +39,7 @@ After login you will see admin panel
 
 There are following API endpoints:
 
-Get JWT tokens at http://127.0.0.1:8000/api/v1/token
+Get the JWT tokens at http://127.0.0.1:8000/api/v1/token
 
 Refresh at http://127.0.0.1:8000/api/v1/token/refresh/
 
