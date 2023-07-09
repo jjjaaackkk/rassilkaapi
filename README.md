@@ -37,7 +37,7 @@ After login you will see admin panel
 
 ### API
 
-There are following API endpoints:
+There are the following API endpoints:
 
 Get the JWT tokens at http://127.0.0.1:8000/api/v1/token
 
