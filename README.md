@@ -1,7 +1,7 @@
 # Rassilka API
 
 Hello to my test project!
-This is test Django/DRF project using Celery
+This is a test Django/DRF project using Celery
 
 ## REQUIREMENTS
 
