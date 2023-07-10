@@ -61,7 +61,7 @@ class CustomerAPI(APIView):
     
 class CampaignAPI(APIView): 
 
-    #permission_classes = (IsAuthenticated, )
+    permission_classes = (IsAuthenticated, )
 
     def get(self, req):
         return Response({
