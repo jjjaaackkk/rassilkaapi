@@ -1,3 +1,4 @@
+from rest_framework import status as STATUS
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -33,6 +34,10 @@ def json_response(msg='', succeed=1):
             'result': 'failed',
             'error': msg
         })
+    
+def id_not_found(msg):
+    content = { 'error': msg }
+    return Response(content, status=STATUS.HTTP_404_NOT_FOUND)
 
 class CustomerAPI1(APIView):
 
@@ -61,6 +66,8 @@ class CustomerAPI2(APIView):
 
     permission_classes = (IsAuthenticated, )
 
+
+
     def get_object(self, pk):
         try:
             return Customer.objects.get(pk=pk)
@@ -75,7 +82,7 @@ class CustomerAPI2(APIView):
         obj = self.get_object(pk)
 
         if not obj:
-            return json_response('Клиент не найден!', 0)
+            return id_not_found('Клиент не найден!')
 
         return Response({
             'id': obj.id,
@@ -90,6 +97,10 @@ class CustomerAPI2(APIView):
                          )
     def put(self, req, pk):
         obj = self.get_object(pk)
+
+        if not obj:
+            return id_not_found('Клиент не найден!')
+
         serializer = CustomerSerializer(instance=obj, data=req.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
@@ -103,7 +114,7 @@ class CustomerAPI2(APIView):
         obj = self.get_object(pk)
 
         if not obj:
-            return json_response('Клиент не найден!', 0)
+            return id_not_found('Клиент не найден!')
 
         obj.delete()
         return json_response()
@@ -149,7 +160,7 @@ class CampaignAPI2(APIView):
         obj = self.get_object(pk)
 
         if not obj:
-            return json_response('Рассылка не найдена!', 0)
+            return id_not_found('Рассылка не найдена!')
 
         return Response({
             'id': obj.id,
@@ -167,12 +178,16 @@ class CampaignAPI2(APIView):
                          )
     def put(self, req, pk):
         obj = self.get_object(pk)
+
+        if not obj:
+            return id_not_found('Рассылка не найдена!')
+
         serializer = CampaignSerializer(instance=obj, data=req.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return json_response()
     
-    @swagger_auto_schema(responses=campaign_post_responses,
+    @swagger_auto_schema(responses=campaign_put_responses,
                          operation_description='Удалить рассылку по ID',
                          manual_parameters=[campaign_par],
                          )
@@ -180,7 +195,7 @@ class CampaignAPI2(APIView):
         obj = self.get_object(pk)
 
         if not obj:
-            return json_response('Рассылка не найдена!', 0)
+            return id_not_found('Рассылка не найдена!')
 
         obj.delete()
         return json_response()
@@ -253,7 +268,7 @@ class StatsAPI2(APIView):
         camp = self.get_object(pk)
 
         if not camp:
-            return json_response('Рассылка не найдена!', 0)
+            return id_not_found('Рассылка не найдена!')
 
         status = ''
 

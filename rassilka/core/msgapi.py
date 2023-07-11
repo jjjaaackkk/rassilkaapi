@@ -1,5 +1,4 @@
 import requests
-import json
 
 
 def send_msg(msgId, apikey, tel, text):
@@ -9,6 +8,7 @@ def send_msg(msgId, apikey, tel, text):
     headers = {
         'Authorization': f'Bearer {apikey}',
         'Content-Type': 'application/json',
+        'Connection': 'keep-alive',
         }
 
     data = {

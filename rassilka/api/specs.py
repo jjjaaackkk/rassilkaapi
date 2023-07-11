@@ -30,7 +30,11 @@ customer_get_response = {
                     'tel':openapi.Schema(type=openapi.TYPE_STRING, description="Номер телефона", example='79093112029'),
                     'tmz':openapi.Schema(type=openapi.TYPE_STRING, description="Часовой пояс", example='Europe/Moscow'),
                     }
-                    )})}
+                    )}),
+    404: openapi.Schema(
+        type=openapi.TYPE_OBJECT, 
+        properties={'error': openapi.Schema(type=openapi.TYPE_STRING,),
+                    })}
 
 campaign_get_response_all = {
     200: openapi.Schema(
@@ -68,6 +72,10 @@ campaign_get_response = {
                             {2: 'в процессе'},
                             {3: 'завершена'},
                             ]),
+                    }),
+    404: openapi.Schema(
+        type=openapi.TYPE_OBJECT, 
+        properties={'error': openapi.Schema(type=openapi.TYPE_STRING,),
                     })}
 
 stats_get_response_main = {
@@ -114,7 +122,11 @@ stats_get_response = {
                     'failed':openapi.Schema(type=openapi.TYPE_INTEGER, description="Неудачные", example=10),
                     'finished':openapi.Schema(type=openapi.TYPE_INTEGER, description="Готовые", example=10),
                     }
-                    ),})}
+                    ),}),             
+    404: openapi.Schema(
+        type=openapi.TYPE_OBJECT, 
+        properties={'error': openapi.Schema(type=openapi.TYPE_STRING,),
+                    })}
 
 
 # POST Request Bodies
@@ -174,12 +186,20 @@ campaign_put_responses = {
     200: openapi.Schema(
         type=openapi.TYPE_OBJECT, 
         properties={'result': openapi.Schema(type=openapi.TYPE_STRING,),
+                    }),
+    404: openapi.Schema(
+        type=openapi.TYPE_OBJECT, 
+        properties={'error': openapi.Schema(type=openapi.TYPE_STRING,),
                     })}
 
 customer_put_responses = {
     200: openapi.Schema(
         type=openapi.TYPE_OBJECT, 
         properties={'result': openapi.Schema(type=openapi.TYPE_STRING,),
+                    }),
+    404: openapi.Schema(
+        type=openapi.TYPE_OBJECT, 
+        properties={'error': openapi.Schema(type=openapi.TYPE_STRING,),
                     })}
 
 # GET Parameters

@@ -3,11 +3,12 @@ from .msgapi import send_msg
 from .models import Settings
 
 # API test
+print('probe.fbrq.cloud api test')
 sets = Settings.objects.first()
 
 test_obj = {
     'params': [],
-    'id': 11995475652,
+    'id': 11995475656,
     'apikey': sets.api_key,
     'tel': int('79225667888'),
     'msg': 'test',
