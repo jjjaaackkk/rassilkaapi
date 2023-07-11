@@ -1,5 +1,8 @@
 from django.db import models
-import pytz 
+from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+import pytz
 
 TIMEZONES = tuple(zip(pytz.all_timezones, pytz.all_timezones))
 
@@ -67,3 +70,22 @@ class MSG(models.Model):
 
     def __str__(self):
         return '{}'.format(self.id)
+
+
+class Settings(models.Model):
+
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    api_key = models.TextField(blank=True)
+
+    class Meta:
+        verbose_name = 'Settings'
+        verbose_name_plural = 'Settings'
+
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Settings.objects.create(user=instance)
+
+@receiver(post_save, sender=User)
+def save_user_profile(sender, instance, **kwargs):
+    instance.settings.save()

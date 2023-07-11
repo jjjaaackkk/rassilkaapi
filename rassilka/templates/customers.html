@@ -26,13 +26,9 @@
                             <thead>
                                 <tr role="row">
                                     <th class="sorting sorting_asc" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" style="width: 86px;" aria-sort="ascending">ID</th>
-
                                     <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" style="width: 248px;">Тег</th>
-                                    
                                     <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" style="width: 159px;">Телефон</th>
-                                    
                                     <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" style="width: 218px;">Часовой пояс</th>
-
                                     <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" style="width: 110px;"></th>
                                 </tr>
                             </thead>
@@ -41,7 +37,7 @@
                                 {% if customers %}
                                     {% for customer in customers %}
                                         <tr id="customer{{ customer.id }}" class="odd">
-                                            <td class="dtr-control sorting_1" tabindex="0">{{ customers.id }}</td>
+                                            <td class="dtr-control sorting_1" tabindex="0">{{ customer.id }}</td>
                                             <td>{{ customer.tag }}</td>
                                             <td>{{ customer.tel }}</td>
                                             <td>{{ customer.tmz }}</td>
@@ -61,11 +57,9 @@
                         </table>
                     </div>
                 </div>
-
-                <script src="{% static 'webui/js/customers.js' %}"></script>
                 
                 <div class="row">
-                    
+        
                     <div class="col-sm-12 col-md-5">
                         <div class="dataTables_info" id="dataTables-example_info" role="status" aria-live="polite">Showing 1 to 10 of 10 entries</div>
                     </div>
@@ -107,4 +101,41 @@
             </div>
         </div>
     </div>
+
+    <!-- CREATE NEW CUSTOMER -->
+
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header">Добавление нового клиента</div>
+            <div class="card-body">
+
+                <form id="new_form" accept-charset="utf-8">
+                    <div class="row g-2">
+                        <div class="mb-3 col-md-6">
+                            <label for="tag" class="form-label">Тэг</label><br>
+                            <input id="tag" class="form-control" name="tag"><br>
+                            <small>Пример: good</small>
+                        </div>
+                        <div class="mb-3 col-md-6">
+                            <label for="tel" class="form-label">Телефон</label><br>
+                            <input id="tel" class="form-control" name="tel"><br>
+                            <small>Формат: 7XXXXXXXXXX, пример: 79905501000</small>
+                        </div>
+                        <div class="mb-3 col-md-6">
+                            <label for="tmz" class="form-label">Часовой пояс</label><br>
+                            <select id="tmz" class="form-control" name="tmz"></select>
+                        </div>
+                    </div>
+
+                    <div id="new_form_result" role="alert" style="display: none;"></div><br>
+
+                    <input class="form-control" type="submit" />
+                    
+                </form>
+            </div>
+        </div>
+    </div>
+
 </div>
+
+<script src="{% static 'webui/js/customers.js' %}"></script>

@@ -10,19 +10,17 @@ You can find in file **requirements.txt**
 
 ## INSTALLATION
 
-1) change **.env.env** global variables such as DB, API, etc
+1) update DB credentials in **.env.env** file
 
 2) In your shell:
 
 `docker-compose build`
 
-`docker-compose run rassilka sh -c "python manage.py makemigratons"`
+`docker-compose run rassilka sh -c "python manage.py migrate"`
 
 `docker-compose run rassilka sh -c "python manage.py createsuperuser"`
 
 Set your login, email, password
-
-`docker-compose run rassilka sh -c "python manage.py makemigrations"`
 
 Final step
 
@@ -44,8 +42,9 @@ Get the JWT tokens at http://127.0.0.1:8000/api/v1/token
 Refresh at http://127.0.0.1:8000/api/v1/token/refresh/
 
 To add/edit/delete:
-- campaigns use http://127.0.0.1:8000/api/v1/campaigns/
-- customers use http://127.0.0.1:8000/api/v1/customers/
+- for campaigns use http://127.0.0.1:8000/api/v1/campaigns/
+- for customers use http://127.0.0.1:8000/api/v1/customers/
+- for messages use http://127.0.0.1:8000/api/v1/messages/
 
 For statistics:
 - customers use http://127.0.0.1:8000/api/v1/stats/
@@ -58,9 +57,7 @@ You can learn more about API using https://127.0.0.1/docs/
 ## TODO
 
 - Add manuals
-- Add OpenAPI related data
 - Fix 3rd party API problems
-- In Admin Panel finish Customers, Messages, Settings sections
 - Fix bugs
 - Maybe add k8s
 

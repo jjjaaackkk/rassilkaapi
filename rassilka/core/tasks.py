@@ -12,6 +12,18 @@ def is_unique_msgId(msgId):
         return False
     except MSG.DoesNotExist:
         return True
+    
+def genMsgId():
+
+    a = 11995485656
+    b = 99995485656
+
+    msgid = random.randint(a, b)
+    
+    while not is_unique_msgId(msgid):
+        msgid = random.randint(a, b)
+
+    return msgid
 
 @shared_task(bind=True)
 def init_job(self):
@@ -48,7 +60,7 @@ def init_job(self):
         now = datetime.now().timestamp()
 
         # check if time to send
-        if start >= now and stop <= now:
+        if start >= now and stop <= now and camp.status < 2:
 
             # set status PROCESSING
             camp.update(status=2)
@@ -71,17 +83,13 @@ def init_job(self):
             
             # send msg 1 by 1
             for customer in customers:
-                
-                # gen unique msgId
-                msgid = random.randint(1000000000, 9999999999)
-                
-                while not is_unique_msgId(msgid):
-                    msgid = random.randint(1000000000, 9999999999)
-                    
-                status = send_msg(msgid, customer.tel, text)
+
+                msgId = genMsgId()
+
+                status = send_msg(msgId, customer.tel, text)
 
                 message = MSG.objects.create(
-                    msgId=msgid,
+                    msgId=msgId,
                     customer_id=customer.id,
                     campaign_id=camp.id,
                     status=status,

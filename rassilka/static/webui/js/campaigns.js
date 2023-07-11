@@ -303,9 +303,6 @@ document.addEventListener('DOMContentLoaded', function()
         if (data.includes('tag')) filter.tag = $('#tag').val();
 
         data += `&filter=${JSON.stringify(filter)}`.replaceAll('"', "'");
-
-        alert(data);
-
         send_new_form(data);
     });
 

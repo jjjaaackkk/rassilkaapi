@@ -11,10 +11,10 @@ from rest_framework_simplejwt.views import (
 )
 
 from webui.views import (
-    get_panel, get_campaigns, get_customers, get_messages, get_settings, get_login, login_page,
+    get_panel, get_campaigns, get_customers, get_messages, get_settings, get_login, login_page, save_settings
 )
 from api.views import (
-    CampaignAPI, StatsData, StatsDataByCampaign, CustomerAPI,
+    CampaignAPI1, CampaignAPI2, StatsAPI1, StatsAPI2, CustomerAPI1, CustomerAPI2, MessageAPI
 )
 
 
@@ -30,40 +30,47 @@ urlpatterns = [
     re_path(r'^post_login', get_login),
     path('account/campaigns/page/<int:page>', get_campaigns),
     re_path(r'^account/campaigns', get_campaigns),
+    path('account/customers/page/<int:page>', get_campaigns),
     re_path(r'^account/customers', get_customers),
     re_path(r'^account/messages', get_messages),
     re_path(r'^account/settings', get_settings),
     re_path(r'^account', get_panel),
+    re_path(r'^save_settings', save_settings),
 ]
 
 # API 
 urlpatterns += [
     path('api/v1/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/v1/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    path('api/v1/campaigns/<int:pk>', CampaignAPI.as_view()),
-    re_path('api/v1/campaigns', CampaignAPI.as_view()),
-    path('api/v1/customers/<int:pk>', CustomerAPI.as_view()),
-    re_path('api/v1/customers', CustomerAPI.as_view()),
-    path('api/v1/stats/<int:pk>', StatsDataByCampaign.as_view()),
-    re_path('api/v1/stats', StatsData.as_view()),
+    path('api/v1/campaigns/<int:pk>', CampaignAPI2.as_view()),
+    re_path('api/v1/campaigns', CampaignAPI1.as_view()),
+    path('api/v1/customers/<int:pk>', CustomerAPI2.as_view()),
+    re_path('api/v1/customers', CustomerAPI1.as_view()),
+    path('api/v1/messages/<int:pk>', MessageAPI.as_view()),
+    path('api/v1/stats/<int:pk>', StatsAPI2.as_view()),
+    re_path('api/v1/stats', StatsAPI1.as_view()),
 ] 
 
 
 # Swagger Docs
 schema_view = get_schema_view(
    openapi.Info(
-      title="Snippets API",
+      title="Rassilka API",
       default_version='v1',
-      description="Just a simple API server",
-      terms_of_service="https://www.google.com/policies/terms/",
-      contact=openapi.Contact(email="contact@snippets.local"),
+      description="Тестовое приложение Rassilki API",
+      terms_of_service="",
+      contact=openapi.Contact(email=""),
       license=openapi.License(name="BSD License"),
    ),
    public=True,
    permission_classes=(permissions.AllowAny,),
 )
 
+#urlpatterns += doc_urls
+
 urlpatterns += [
-   re_path('docs', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+   path('docs(?<format>\json|\.yaml)', schema_view.without_ui(cache_timeout=0), name='schema-json'),
+   path('docs/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+   path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
 ]
 

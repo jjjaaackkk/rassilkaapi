@@ -1,10 +1,31 @@
+{% load static %}
+
 <div class="content">
     <div class="container">
-        <div class="row">
-            <div class="col-md-12 page-header">
-                <h2 class="page-title">Настройки</h2>
-            </div>
+        <div class="page-title">
+            <h3>Настройки</h3>
         </div>
 
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header">Изменение настроек</div>
+            <div class="card-body">
+
+                <form id="new_form" method="post" action="/save_settings" accept-charset="utf-8">
+                    <div class="mb-3">
+                        <label for="apikey" class="form-label">API KEY</label><br>
+                        <textarea id="apikey" class="form-control" name="apikey" cols="200" rows="4">{{ user.settings.api_key }}</textarea><br>
+                    </div>
+
+                    <div id="new_form_result" role="alert" style="display: none;"></div><br>
+
+                    {% csrf_token %}
+
+                    <input class="form-control" type="submit" />
+                    
+                </form>
+            </div>
+        </div>
     </div>
+
 </div>

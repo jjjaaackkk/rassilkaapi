@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import csrf_protect
 
 from core.stats import (
     get_stats_from_camps, get_stats_from_msgs
@@ -11,7 +12,7 @@ from core.models import (
 from .pagination import paginate_items
 
 
-def login_page(req):
+def login_page(req): 
     return render(req, "login.html")
 
 def get_login(req):
@@ -93,16 +94,24 @@ def get_customers(req, page = 1):
     return render(req, "index.html", data)
 
 @login_required(login_url='/login')
-def get_messages(req):
+def get_messages(req, page = 1):
+
+    msgs = MSG.objects.all()
+    msgs = paginate_items(msgs, page)
 
     data = {
         'base': 'messages',
+        'msgs': msgs['items'],
+        'prev_page': (page - 1),
+        'current_page': page,
+        'next_page': (page + 1),
+        'last_page': msgs['pages'],
     }
 
     return render(req, "index.html", data)
 
 @login_required(login_url='/login')
-def get_settings(req):
+def get_settings(req, csrfContext = None):
 
     data = {
         'base': 'settings',
@@ -110,3 +119,15 @@ def get_settings(req):
 
     return render(req, "index.html", data)
     
+@csrf_protect
+def save_settings(req):
+
+    user = req.user
+
+    if not user:
+        return render(req, "login.html")
+
+    if req.method == 'POST':
+        user.settings.api_key = req.POST['apikey']
+        user.save()
+        return get_settings(req)
