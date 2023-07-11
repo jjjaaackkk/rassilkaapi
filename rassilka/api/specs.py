@@ -221,3 +221,14 @@ msg_par = openapi.Parameter(
     description="Id сообщения",
     type=openapi.TYPE_INTEGER
     )
+
+# DELETE responses
+messages_delete_responses = {
+    200: openapi.Schema(
+        type=openapi.TYPE_OBJECT, 
+        properties={'result': openapi.Schema(type=openapi.TYPE_STRING,),
+                    }),
+    404: openapi.Schema(
+        type=openapi.TYPE_OBJECT, 
+        properties={'error': openapi.Schema(type=openapi.TYPE_STRING,),
+                    })}

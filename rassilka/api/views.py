@@ -15,29 +15,14 @@ from core.stats import (
     get_stats_from_camps, get_stats_from_msgs
 )
 from .specs import (
-    campaign_par, campaign_post_request, campaign_post_responses, campaign_get_response_all, campaign_get_response, campaign_put_request, campaign_put_responses, customer_par, customer_post_request, customer_post_responses, customer_get_response_all, customer_get_response, customer_put_responses, msg_par, stats_get_response_main, stats_get_response
+    campaign_par, campaign_post_request, campaign_post_responses, campaign_get_response_all, campaign_get_response, campaign_put_request, campaign_put_responses, customer_par, customer_post_request, customer_post_responses, customer_get_response_all, customer_get_response, customer_put_responses, msg_par, stats_get_response_main, stats_get_response, messages_delete_responses
 )
-
-
-def json_response(msg='', succeed=1):
-
-    if succeed == 1:
-        return Response({
-            'result': 'succeed',
-        })
-    elif succeed == 1 and not msg == '':
-        return Response({
-            'result': msg,
-        })
-    else:
-        return Response({
-            'result': 'failed',
-            'error': msg
-        })
     
+def result_succeed():
+    Response({'result': 'succeed'})
+
 def id_not_found(msg):
-    content = { 'error': msg }
-    return Response(content, status=STATUS.HTTP_404_NOT_FOUND)
+    return Response({ 'error': msg }, status=STATUS.HTTP_404_NOT_FOUND)
 
 class CustomerAPI1(APIView):
 
@@ -59,7 +44,7 @@ class CustomerAPI1(APIView):
         serializer = CustomerSerializer(data=req.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
-        return json_response()
+        return result_succeed()
 
 
 class CustomerAPI2(APIView): 
@@ -104,7 +89,7 @@ class CustomerAPI2(APIView):
         serializer = CustomerSerializer(instance=obj, data=req.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
-        return json_response()
+        return result_succeed()
     
     @swagger_auto_schema(responses=customer_post_responses,
                          operation_description='Удалить клиента по ID',
@@ -117,7 +102,7 @@ class CustomerAPI2(APIView):
             return id_not_found('Клиент не найден!')
 
         obj.delete()
-        return json_response()
+        return result_succeed()
     
 
 class CampaignAPI1(APIView): 
@@ -140,7 +125,7 @@ class CampaignAPI1(APIView):
         serializer = CampaignSerializer(data=req.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
-        return json_response()
+        return result_succeed()
     
 
 class CampaignAPI2(APIView): 
@@ -185,7 +170,7 @@ class CampaignAPI2(APIView):
         serializer = CampaignSerializer(instance=obj, data=req.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
-        return json_response()
+        return result_succeed()
     
     @swagger_auto_schema(responses=campaign_put_responses,
                          operation_description='Удалить рассылку по ID',
@@ -198,7 +183,7 @@ class CampaignAPI2(APIView):
             return id_not_found('Рассылка не найдена!')
 
         obj.delete()
-        return json_response()
+        return result_succeed()
 
 
 class MessageAPI(APIView): 
@@ -211,7 +196,7 @@ class MessageAPI(APIView):
         except MSG.DoesNotExist:
             return None
 
-    @swagger_auto_schema(responses=campaign_post_responses,
+    @swagger_auto_schema(responses=messages_delete_responses,
                          operation_description='Удалить сообщение по ID',
                          manual_parameters=[msg_par],
                          )
@@ -220,10 +205,10 @@ class MessageAPI(APIView):
         obj = self.get_object(pk)
 
         if not obj:
-            return json_response('Сообщение не найдено!', 0)
+            return id_not_found('Сообщение не найдено!')
 
         obj.delete()
-        return json_response()
+        return result_succeed()
     
 
 class StatsAPI1(APIView):
