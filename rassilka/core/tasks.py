@@ -3,7 +3,7 @@ from datetime import date, datetime
 import random
 import json
 
-from .models import Campaign, Customer, MSG
+from .models import Campaign, Customer, MSG, Settings
 from .msgapi import send_msg
 
 def is_unique_msgId(msgId):
@@ -45,6 +45,13 @@ def init_job(self):
     if not customers.exists():
         return "customers empty"
     
+    sets = Settings.objects.first()
+    
+    if not sets or not sets.api_key or sets.api_key == '':
+        return "no settings"
+    
+    apikey = sets.api_key
+    
     # camp 1 by 1
     for camp in camps:
 
@@ -56,8 +63,8 @@ def init_job(self):
 
         start = camp.start.timestamp()
         stop = camp.stop.timestamp()
-
         now = datetime.now().timestamp()
+
 
         # check if time to send
         if start >= now and stop <= now and camp.status < 2:
@@ -85,8 +92,9 @@ def init_job(self):
             for customer in customers:
 
                 msgId = genMsgId()
+                tel = int(customer.tel)
 
-                status = send_msg(msgId, customer.tel, text)
+                status = send_msg(msgId, apikey, tel, text)
 
                 message = MSG.objects.create(
                     msgId=msgId,
