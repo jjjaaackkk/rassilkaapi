@@ -22,9 +22,11 @@ You can find in file **requirements.txt**
 
 Set your login, email, password
 
-Final step
+3) build docker
 
 `docker-compose up --build`
+
+4) Add your API KEY in http://127.0.0.1:8000/account/settings
 
 
 ## FIRST STEPS
