@@ -43,13 +43,22 @@ Get the JWT tokens at http://127.0.0.1:8000/api/v1/token
 
 Refresh at http://127.0.0.1:8000/api/v1/token/refresh/
 
-To add/edit/delete:
-- for campaigns use http://127.0.0.1:8000/api/v1/campaigns/
-- for customers use http://127.0.0.1:8000/api/v1/customers/
-- for messages use http://127.0.0.1:8000/api/v1/messages/
+To add/edit/delete
 
-For statistics:
-- customers use http://127.0.0.1:8000/api/v1/stats/
+for campaigns use
+- http://127.0.0.1:8000/api/v1/campaigns/
+- http://127.0.0.1:8000/api/v1/campaigns/{ID}
+   
+for customers use:
+- http://127.0.0.1:8000/api/v1/customers/
+- http://127.0.0.1:8000/api/v1/customers/{ID}
+   
+for messages use:
+- http://127.0.0.1:8000/api/v1/messages/{ID}
+
+for statistics use: 
+- http://127.0.0.1:8000/api/v1/stats/
+- http://127.0.0.1:8000/api/v1/stats/{ID}
 
 
 ### Swagger UI
@@ -58,10 +67,6 @@ You can learn more about API using https://127.0.0.1/docs/
 
 ## TODO
 
-- Add manuals
 - Fix 3rd party API problems
 - Fix bugs
 - Maybe add k8s
-
-
-
