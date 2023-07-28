@@ -152,6 +152,3 @@ REST_FRAMEWORK = {
 CELERY_BROKER_URL = "redis://redis:6379"
 CELERY_RESULT_BACKEND = "redis://redis:6379"
 CELERY_TIMEZONE = 'Europe/Moscow'
-
-# SEND API
-SEND_API_KEY = os.environ.get('SEND_API_KEY')
